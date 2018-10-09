@@ -25,6 +25,7 @@ class SettingController extends Controller
     public function create()
     {
         //
+        return view('addsetting');
     }
 
     /**
@@ -36,6 +37,15 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         //
+        $setting = new Setting;
+
+        $setting->title = $request->input('title');
+        $setting->key = "site.".strtolower(str_replace(' ', '_', $request->input('title')));
+        $setting->value = $request->input('value');
+        $setting->type = "string";
+        $setting->save();
+
+        return redirect()->route('admin')->with('success','Setting Created Successfully');
     }
 
     /**

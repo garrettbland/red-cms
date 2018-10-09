@@ -15,3 +15,9 @@ Route::get('/', function(){
   Log::debug('Home page accessed');
   return view('pages.home');
 });
+
+Route::resource('/admin/settings','SettingController');
+
+Auth::routes();
+
+Route::get('/admin', 'HomeController@index')->name('admin');

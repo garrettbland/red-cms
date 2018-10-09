@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Setting;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsObserver
 {
@@ -17,7 +18,7 @@ class SettingsObserver
     public function created(Setting $setting)
     {
         //
-        Log::debug('A setting was created');
+        Log::debug('A setting was created by '. Auth::user());
     }
 
     /**
@@ -29,8 +30,8 @@ class SettingsObserver
     public function updated(Setting $setting)
     {
         // Forget the cache site.settings on update
-        Log::debug('Cached cleared');
         Cache::forget('site.settings');
+        Log::debug('A setting was updated & cached cleared by '. Auth::user());
     }
 
     /**
