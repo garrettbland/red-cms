@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\Setting;
 
+use App\Observers\SettingsObserver;
 use Illuminate\Support\ServiceProvider;
 
 class SettingsServiceProvider extends ServiceProvider
@@ -14,18 +15,19 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Register the Settings Observer for Red CMS
+        Setting::observe(SettingsObserver::class);
     }
 
     /**
-     * Register services.
+     * Register services. Saves to cache for 60 minutes
      *
      * @return void
      */
     public function register()
     {
         $this->app->singleton('settings', function ($app) {
-            return $app['cache']->remember('site.settings', 0, function () {
+            return $app['cache']->remember('site.settings', 60, function () {
                 return Setting::pluck('value', 'key')->toArray();
             });
         });
