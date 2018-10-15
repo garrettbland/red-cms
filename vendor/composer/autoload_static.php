@@ -372,6 +372,7 @@ class ComposerStaticInit20f8314fa58726064d72c535b2b95c1c
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Providers\\SettingsServiceProvider' => __DIR__ . '/../..' . '/app/Providers/SettingsServiceProvider.php',
+        'App\\Section' => __DIR__ . '/../..' . '/app/Section.php',
         'App\\Setting' => __DIR__ . '/../..' . '/app/Setting.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

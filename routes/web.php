@@ -21,3 +21,7 @@ Route::resource('/admin/settings','SettingController');
 Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin');
+
+Route::get('/redcms', function(){
+  return view('redcms');
+});

@@ -31,6 +31,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Providers\\SettingsServiceProvider' => $baseDir . '/app/Providers/SettingsServiceProvider.php',
+    'App\\Section' => $baseDir . '/app/Section.php',
     'App\\Setting' => $baseDir . '/app/Setting.php',
     'App\\User' => $baseDir . '/app/User.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

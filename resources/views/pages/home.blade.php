@@ -15,6 +15,6 @@
     </head>
     <body>
       <h1>Red CMS</h1>
-      <h1>TEST VALUE: {{ setting('site.name') }}</h1>
+      <h1>TEST VALUE: {{ setting('site.mountain_dew') }}</h1>
     </body>
 </html>

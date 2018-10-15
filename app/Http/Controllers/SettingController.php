@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use Illuminate\Http\Request;
+use App\Http\Resources\SettingsCollection;
 
 class SettingController extends Controller
 {
@@ -15,6 +16,8 @@ class SettingController extends Controller
     public function index()
     {
         //
+        $settings = Setting::find($id)->settings;
+        return new SectionsCollection($settings);
     }
 
     /**
