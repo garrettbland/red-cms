@@ -8,7 +8,7 @@
 
 <ul>
     <li v-for="section in sections">
-      <router-link :to="{ name: 'settings', params: { slug: section.slug }}">{{ section.title }}</router-link>
+      <router-link :to="{ name: 'settings', params: { id: section.id }}">{{ section.title }}</router-link>
     </li>
   </ul>
 

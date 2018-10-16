@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Resources\SettingsCollection;
+use Illuminate\Support\Facades\Input;
+use Response;
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -20,77 +18,78 @@ class SettingController extends Controller
         return new SectionsCollection($settings);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
         return view('addsetting');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-        $setting = new Setting;
 
-        $setting->title = $request->input('title');
-        $setting->key = "site.".strtolower(str_replace(' ', '_', $request->input('title')));
-        $setting->value = $request->input('value');
-        $setting->type = "string";
-        $setting->save();
+        try{
 
-        return redirect()->route('admin')->with('success','Setting Created Successfully');
+          $setting = new Setting;
+          $setting->title = $request->input('title');
+          $setting->key = strtolower(str_replace(' ', '_', $request->input('title')));
+          $setting->value = $request->input('value');
+          $setting->type = $request->input('type');
+          $setting->section_id = $request->input('section_id');
+          $setting->save();
+            //find menu item by id from previous saved row above for response
+            //$item = Menu::find($newItem->id);
+            //build api response
+            $response = [
+              'created' => "Setting has been created"
+            ];
+            //set status code
+            $statusCode = 200;
+        }catch(\Exception $e){
+            $response = [
+                "error" => "Setting could not be added",
+            ];
+            $statusCode = 404;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
     public function show(Setting $setting)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Setting $setting)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request)
     {
-        //
+      try{
+
+        $setting = Setting::find($request->input('id'));
+        $setting->value = $request->input('value');
+        $setting->update();
+          //find menu item by id from previous saved row above for response
+          //$item = Menu::find($newItem->id);
+          //build api response
+          $response = [
+            'update' => "Setting has been updated"
+          ];
+          //set status code
+          $statusCode = 200;
+      }catch(\Exception $e){
+          $response = [
+              "error" => "Setting could not be updated",
+          ];
+          $statusCode = 404;
+      }finally{
+          return Response::json($response, $statusCode);
+      }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Setting $setting)
     {
         //

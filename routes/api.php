@@ -18,4 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/sections','SectionController@index');
-Route::get('/sections/{slug}','SectionController@show');
+Route::get('/sections/{id}','SectionController@show');
+Route::get('/sections/{id}/title','SectionController@title');
+Route::post('/add/setting','SettingController@store');
+Route::post('/add/section','SectionController@store');
+Route::post('/update/setting','SettingController@update');

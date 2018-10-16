@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Settings from './views/Settings.vue'
 import Add from './views/Add.vue'
+import AddSection from './views/AddSection.vue'
 import Edit from './views/Edit.vue'
 import NotFound from './views/NotFound.vue'
 
@@ -22,12 +23,17 @@ export default new Router({
       component: Add
     },
     {
+      path: '/addsection',
+      name: 'addsection',
+      component: AddSection
+    },
+    {
       path: '/edit/:id',
       name: 'edit',
       component: Edit
     },
     {
-      path: '/sections/:slug',
+      path: '/sections/:id',
       name: 'settings',
       component: Settings
     },

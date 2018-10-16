@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Section;
 use Illuminate\Http\Request;
 use App\Http\Resources\SectionsCollection;
+use App\Http\Resources\SectionsResource;
+use Illuminate\Support\Facades\Input;
+use Response;
 
 class SectionController extends Controller
 {
@@ -16,6 +19,13 @@ class SectionController extends Controller
         return new SectionsCollection($sections);
     }
 
+    public function title($id)
+    {
+        //List all sections
+        $section = Section::find($id);
+        return new SectionsResource($section);
+    }
+
 
     public function create()
     {
@@ -25,14 +35,34 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         //
+
+        try{
+
+          $section = new Section;
+          $section->title = $request->input('title');
+          $section->save();
+            //find menu item by id from previous saved row above for response
+            //$item = Menu::find($newItem->id);
+            //build api response
+            $response = [
+              'created' => "Section has been created"
+            ];
+            //set status code
+            $statusCode = 200;
+        }catch(\Exception $e){
+            $response = [
+                "error" => "Section could not be added",
+            ];
+            $statusCode = 404;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
     }
 
-    public function show($slug)
+    public function show($id)
     {
-        //Find id of section
-        $section = Section::where('slug',$slug)->first();
-        //Show all settings filtered by id
-        $settings = Section::find($section->id)->settings;
+        //Show all settings by id
+        $settings = Section::find($id)->settings;
         return new SectionsCollection($settings);
     }
 

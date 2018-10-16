@@ -2,32 +2,16 @@
   <div class="home">
     <!--<img alt="Vue logo" src="../assets/logo.png">-->
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <h1>Add Settings</h1>
+    <h1>Add Section</h1>
 
     do the steps for adding settings here
     <p>ADDED?: {{added}}</p>
     <hr>
 
-    <input v-model="setting.title" placeholder="edit me">
-    <p>TITLE: {{setting.title}}</p>
+    <input v-model="title" placeholder="edit me">
+    <p>TITLE: {{title}}</p>
     <p class="help is-danger" v-if="error.title">Title cannot be empty</p>
 
-    <p>Section</p>
-    <select v-model="setting.section_id">
-      <option v-for="section in sections" v-bind:value="section.id">
-        {{ section.title }}
-      </option>
-    </select>
-    <p>SECTION: {{setting.section_id}}</p>
-
-    <p>Type</p>
-    <select v-model="setting.type">
-      <option value="string">Text</option>
-      <option value="paragraph">Rich Text Editor</option>
-    </select>
-
-    <input v-model="setting.value" placeholder="edit me">
-    <p>VALUE: {{setting.value}}</p>
 
     <button v-on:click="validate()">Add</button>
 
@@ -46,11 +30,10 @@ export default {
   },
   data () {
     return {
-      setting:{},
+      title:'',
       sections:[],
       error:{
         title:false,
-        section:false
       },
       errors:[],
       added:false,
@@ -72,12 +55,12 @@ export default {
       //reset errors
       this.errors = [];
       //check inputs and add to error array if needed
-      if(!this.setting.title){this.errors.push("title");}
+      if(!this.title){this.errors.push("title");}
       //if(!this.setting.section){this.errors.push("section");}
       //Check for any errors
       if(!this.errors.length){
         //No error, run update method
-        this.addSetting();
+        this.addSection();
       }else{
         //set loading to false
         this.loading = false;
@@ -88,8 +71,8 @@ export default {
         }
       }
     },
-    addSetting() {
-      Api.AddSetting(this.setting)
+    addSection() {
+      Api.AddSection(this.title)
         .then(response => {
           this.results = response
           console.log(response);
@@ -99,20 +82,10 @@ export default {
         .finally(() => {
 
         })
-    },
-    fetch() {
-      Api.GetAllSections()
-        .then(response => {
-          this.sections = response.data
-        })
-        .catch(error => console.log(error))
-        .finally(() => {
-
-        })
     }
   },
   mounted(){
-    this.fetch()
+
   }
 }
 </script>
