@@ -11,17 +11,19 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
-Route::get('/', function(){
-  Log::debug('Home page accessed');
-  return view('pages.home');
+Route::get('/admin', function(){
+  return view('app');
 });
 
-Route::resource('/admin/settings','SettingController');
+// Route::get('/', function(){
+//   Log::debug('Home page accessed');
+//   return view('pages.home');
+// });
+Route::get('/', 'PageController@index');
+Route::get('/{slug}', 'PageController@show');
 
-Auth::routes();
-
-Route::get('/admin', 'HomeController@index')->name('admin');
-
-Route::get('/redcms', function(){
-  return view('redcms');
-});
+// Route::resource('/admin/settings','SettingController');
+//
+// Auth::routes();
+//
+// Route::get('/admin', 'HomeController@index')->name('admin');
